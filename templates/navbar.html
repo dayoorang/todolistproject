@@ -1,0 +1,44 @@
+{% load bootstrap4 %}
+
+
+<header>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'todoapp:list' %}">MyTodolist</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#">Todo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{% url 'projectapp:list' %}">projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#">Done</a>
+          </li>
+
+
+        </ul>
+       <div class="hstack gap-3 ms-auto">
+        <form class="d-flex">
+            {{ filter.form}}
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+       <div class="vr"></div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accountapp:logout' %}" type="button" class="btn btn-outline-secondary btn-sm">Logout</a>
+                    <span class="badge alert-success">{{ user }}</span>
+                {% else %}
+                    <a href="{% url 'accountapp:login' %}" type="button" class="btn btn-outline-secondary btn-sm">Login</a>
+                    <a href="{% url 'accountapp:signup' %}" type="button" class="btn btn-outline-secondary btn-sm">Register</a>
+                {% endif %}
+       </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-10 m-3">#}
+{#                {% for project in project_list  %}#}
+{#                    <div class="card m-3" style="width: 18rem;">#}
+{#                      <img class="card-img-top" src="{{ project.image.url }}" alt="Card image cap">#}
+{#                      <div class="card-body">#}
+{#                        <h5 class="card-title" style="font-weight: bold;">{{ project.topic }}</h5>#}
+{#                        <p class="card-text">{{ project.description }}</p>#}
+{#                        <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                      </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+<section class="jumbotron text-center m-5">
+    <div class="container">
+      <h1 class="m-3" style="font-weight: bold;">Projects</h1>
+      <p class="lead text-muted">When you go through hardships and decide not to surrender, that is strength. — Arnold Schwarzenegger</p>
+      <p m-5>
+        <a href="{% url 'projectapp:create' %}" class="btn btn-primary my-2">프로젝트 생성</a>
+{#        <a href="#" class="btn btn-secondary my-2">Secondary action</a>#}
+      </p>
+    </div>
+</section>
+ <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+          {% for project in project_list %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                {% if project.image %}
+                    <a href="{% url 'projectapp:detail' pk=project.pk %}">
+                      <img class="bd-placeholder-img card-img-top"
+                           style="object-fit: cover;" width="0.5rem"
+                           src="{{ project.image.url }}"
+                           preserveAspectRatio="xMidYMid slice"
+                           focusable="false"
+                           role="img"
+                           aria-label="Placeholder: Thumbnail">
+                      </img>
+                    </a>
+
+                {% else %}
+                    <a href="{% url 'projectapp:detail' pk=project.pk %}">
+                      <img class="bd-placeholder-img card-img-top"
+                           style="object-fit: cover;"
+                           width="0.5rem"
+                           src="{% url 'pydenticon_image' data=project.topic %}"
+                           preserveAspectRatio="xMidYMid slice"
+                           focusable="false"
+                           role="img"
+                           aria-label="Placeholder: Thumbnail">
+                      </img>
+                    </a>
+
+                {% endif %}
+
+
+                 <div class="card-body">
+                    <a style ="text-decoration: none; color: black;" href="{% url 'projectapp:detail' pk=project.pk %}">
+                      <h5 class="card-title" style="font-weight: bold;">{{ project.topic }}</h5>
+                    </a>
+                  <p class="card-text">{{ project.description }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href ="{%  url 'projectapp:update' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-primary ">Update</a>
+                      <a href="{% url 'projectapp:delete' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+<nav aria-label="Page navigation example">
+
+  <ul class="pagination justify-content-center">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}
+
+

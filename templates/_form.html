@@ -1,0 +1,35 @@
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <h3 style="font-weight: bold">{{ topic|default_if_none:"nothing" }}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                           {% csrf_token %}
+                            {%  bootstrap_form form %}
+{#                            {{ form.as_p }}#}
+{#                            {%  bootstrap_form form.password  %}#}
+{#                            {%  bootstrap_form form.password2  %}#}
+
+                                {% buttons %}
+                                    <button class="btn btn-primary">
+                                        <span style="font-size:1.2rem">{{ submit_label|default:"Submit" }}</span>
+                                    </button>
+                                {% endbuttons %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

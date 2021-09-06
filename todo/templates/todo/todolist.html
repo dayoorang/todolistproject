@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>To do list</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="todothing">
+        <button>제출</button>
+    </form>
+
+    {% for todo in todolist %}
+        <li>
+            <span>
+                <a href="{% url 'detail' todo.pk %}">{{ todo.content }}</a>
+            </span>
+
+            <div>{{ todo.created_at }}</div>
+            {% if todo.subject  %}
+                <div>{{ todo.subject }}</div>
+            {% endif %}
+
+        </li>
+    {% endfor %}
+    <hr>
+{% endblock %}

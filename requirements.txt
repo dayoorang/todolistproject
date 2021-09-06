@@ -1,0 +1,4 @@
+django~=3.2.6
+pillow
+django-bootstrap4
+django-pydenticon
