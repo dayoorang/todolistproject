@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load date_filter %}
 
 {% block content %}
     {% for todo in target_project.todolist.all %}
@@ -11,7 +12,7 @@
                 <div class="mr-auto">
                     <a style="text-decoration: none;" class="badge rounded-pill bg-success" href="{% url 'todoapp:update' todo.pk%}">{{ todo.subject }}</a>
                 </div>
-                <div>{{ todo.created_at|timesince }}</div>
+                <div>{{ todo.created_at|date}}</div>
               </div>
               <div class="card-body">
                 <div>{{ todo.content|truncatechars:30}}</div>
