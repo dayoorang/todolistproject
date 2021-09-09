@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
-    <form action = "{% url 'todoapp:create' %}" method="POST">
+    <form action = "" method="POST">
         {% csrf_token %}
         <div class="container">
-            <h1 class="text-center">Todo List</h1>
-           {% bootstrap_form form %}
-            <button class="btn btn-outline-primary my-2">저장</button>
-            <span>
-            <a href={% url 'todoapp:list' %} class="btn btn-outline-danger">Back to list</a>
-            </span>
+{#            <h1 class="text-center">Todo List</h1>#}
+                {% include '_form.html' with submit_label="생성" topic="Todo 생성" %}
+{#            <button class="btn btn-outline-primary my-2">저장</button>#}
+{#            <span>#}
+{#            <a href={% url 'todoapp:list' %} class="btn btn-outline-danger">Back to list</a>#}
+{#            </span>#}
         </div>
 
     </form>

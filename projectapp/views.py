@@ -3,9 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
+from django.views.generic.edit import FormMixin
 
 from projectapp.forms import ProjectCreationForm
 from projectapp.models import Project
+from todo.forms import TodoForm
 from todo.models import TodoList
 
 
@@ -32,12 +34,15 @@ class ProjectDeleteView(DeleteView):
     success_url = reverse_lazy('projectapp:list')
     template_name = 'projectapp/delete.html'
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(DetailView,FormMixin):
     model = Project
     context_object_name = 'target_project'
+    form_class = TodoForm
     template_name = 'projectapp/detail.html'
 
-
+    def form_valid(self, form):
+        form.instance.project = self.object
+        return super().form_valid(form)
 
 class ProjectUpdateView(UpdateView):
     model = Project

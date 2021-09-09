@@ -3,6 +3,17 @@
 {% load date_filter %}
 
 {% block content %}
+
+{#    {{ form.as_p }}#}
+    <div class="container">
+      <h1 class="m-3" style="font-weight: bold;">To do</h1>
+      <p class="lead text-muted">When you go through hardships and decide not to surrender, that is strength. — Arnold Schwarzenegger</p>
+      <p m-5>
+        <a href="{% url 'todoapp:create' pk=target_project.pk %}" class="btn btn-primary my-2">Todo 생성</a>
+      </p>
+    </div>
+ <div class="album py-5 bg-light">
+
     {% for todo in target_project.todolist.all %}
       <div class ='container'>
         <div class = 'row my-2'>
@@ -12,7 +23,7 @@
                 <div class="mr-auto">
                     <a style="text-decoration: none;" class="badge rounded-pill bg-success" href="{% url 'todoapp:update' todo.pk%}">{{ todo.subject }}</a>
                 </div>
-                <div>{{ todo.created_at|date}}</div>
+                <div class="float-end badge rounded-pill bg-secondary">{{ todo.created_at|date}}</div>
               </div>
               <div class="card-body">
                 <div>{{ todo.content|truncatechars:30}}</div>
@@ -22,4 +33,5 @@
         </div>
      </div>
     {% endfor %}
+ </div>
 {% endblock %}

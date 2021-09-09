@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from projectapp.models import Project
 from todo.filters import SnippetFilter
 from todo.forms import TodoForm
 from todo.models import TodoList
@@ -25,6 +26,26 @@ class TodoCreationView(CreateView):
     form_class = TodoForm
     success_url = reverse_lazy('todoapp:list')
     template_name = 'todo/create.html'
+    #
+    # def form_valid(self, form):
+    #     print(self.kwargs)
+    #     project = Project.objects.get(pk= self.kwargs['pk'])
+    #     form.instance.project = project
+    #     return super().form_valid(form)
+def todo_create_view(request, pk):
+    project = Project.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = TodoForm(request.POST, request.FILES)
+        if form.is_valid():
+            todo = form.save(commit=False)
+            todo.project = project
+            todo.save()
+            return redirect('todoapp:list')
+    else:
+        form = TodoForm()
+    context = {'form': form}
+
+    return render(request, 'todo/create.html', context)
 
 class TodoUpdateView(UpdateView):
     model = TodoList

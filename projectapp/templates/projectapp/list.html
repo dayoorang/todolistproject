@@ -27,59 +27,60 @@
       </p>
     </div>
 </section>
- <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-          {% for project in project_list %}
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                {% if project.image %}
-                    <a href="{% url 'projectapp:detail' pk=project.pk %}">
-                      <img class="bd-placeholder-img card-img-top"
-                           style="object-fit: cover;" width="0.5rem"
-                           src="{{ project.image.url }}"
-                           preserveAspectRatio="xMidYMid slice"
-                           focusable="false"
-                           role="img"
-                           aria-label="Placeholder: Thumbnail">
-                      </img>
-                    </a>
+<div class="album py-5 bg-light">
+<div class="container">
+  <div class="row">
+      {% for project in project_list %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            {% if project.image %}
+                <a href="{% url 'projectapp:detail' pk=project.pk %}">
+                  <img class="bd-placeholder-img card-img-top"
+                       style="object-fit: cover;" width="0.5rem"
+                       src="{{ project.image.url }}"
+                       preserveAspectRatio="xMidYMid slice"
+                       focusable="false"
+                       role="img"
+                       aria-label="Placeholder: Thumbnail">
+                  </img>
+                </a>
 
-                {% else %}
-                    <a href="{% url 'projectapp:detail' pk=project.pk %}">
-                      <img class="bd-placeholder-img card-img-top"
-                           style="object-fit: cover;"
-                           width="0.5rem"
-                           src="{% url 'pydenticon_image' data=project.topic %}"
-                           preserveAspectRatio="xMidYMid slice"
-                           focusable="false"
-                           role="img"
-                           aria-label="Placeholder: Thumbnail">
-                      </img>
-                    </a>
+            {% else %}
+                <a href="{% url 'projectapp:detail' pk=project.pk %}">
+                  <img class="bd-placeholder-img card-img-top"
+                       style="object-fit: cover;"
+                       width="0.5rem"
+                       src="{% url 'pydenticon_image' data=project.topic %}"
+                       preserveAspectRatio="xMidYMid slice"
+                       focusable="false"
+                       role="img"
+                       aria-label="Placeholder: Thumbnail">
+                  </img>
+                </a>
 
-                {% endif %}
+            {% endif %}
 
 
-                 <div class="card-body">
-                    <a style ="text-decoration: none; color: black;" href="{% url 'projectapp:detail' pk=project.pk %}">
-                      <h5 class="card-title" style="font-weight: bold;">{{ project.topic }}</h5>
-                    </a>
-                  <p class="card-text">{{ project.description }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href ="{%  url 'projectapp:update' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-primary ">Update</a>
-                      <a href="{% url 'projectapp:delete' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
+             <div class="card-body">
+                <a style ="text-decoration: none; color: black;" href="{% url 'projectapp:detail' pk=project.pk %}">
+                  <h5 class="card-title" style="font-weight: bold;">{{ project.topic }}</h5>
+                </a>
+              <p class="card-text">{{ project.description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href ="{%  url 'projectapp:update' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-primary ">Update</a>
+                  <a href="{% url 'projectapp:delete' pk=project.pk %}" type="button" class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
+                <small class="text-muted">9 mins</small>
               </div>
             </div>
-          {% endfor %}
-      </div>
-    </div>
+          </div>
+        </div>
+      {% endfor %}
   </div>
+</div>
+</div>
+{# 네비게이션 바#}
 <nav aria-label="Page navigation example">
 
   <ul class="pagination justify-content-center">

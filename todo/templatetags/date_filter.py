@@ -9,7 +9,6 @@ register = template.Library()
 @register.filter
 def date(value):
     now = timezone.now()
-    # now = datetime.today()
     difference = now - value
 
     try:
@@ -21,7 +20,6 @@ def date(value):
     # return difference
     if difference <= timedelta(minutes=1):
         return '방금 전'
-    # return '%(time)s 전' % {'time': timesince(value)}
     elif ',' not in str(difference):
         return 'Today'
 
