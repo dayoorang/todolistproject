@@ -3,17 +3,6 @@
 
 
 {% block content %}
-    <form action = "{% url 'todoapp:update' pk=target_todo.pk %}" method="POST">
-        {% csrf_token %}
-        <div class="container">
-            <h1 class="text-center">Todo List</h1>
-           {% bootstrap_form form %}
-            <button class="btn btn-outline-primary my-2">저장</button>
-            <span>
-                <a href={% url 'todoapp:list' %} class="btn btn-outline-danger">Back to list</a>
-            </span>
-        </div>
-
-    </form>
+    {% include '_form.html' with submit_label="update" topic="update todo" project=project%}
 
 {% endblock %}

@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from projectapp.models import Project
@@ -40,10 +41,11 @@ def todo_create_view(request, pk):
             todo = form.save(commit=False)
             todo.project = project
             todo.save()
-            return redirect('todoapp:list')
+            messages.success(request, 'Todo가 생성되었습니다.')
+            return redirect('projectapp:detail', pk)
     else:
         form = TodoForm()
-    context = {'form': form}
+    context = {'form': form, 'project':project }
 
     return render(request, 'todo/create.html', context)
 
@@ -73,9 +75,19 @@ class TodoListView(ListView):
         context["filter"] = filter
         return context
 
-# class TodoDeleteView(DeleteView):
-#     model = TodoList
-#     template_name
+class TodoDeleteView(DeleteView):
+    model = TodoList
+    context_object_name = 'target_todo'
+    template_name = 'todo/delete.html'
+    success_url = reverse_lazy('projectapp:detail')
+
+    def get_success_url(self):
+        return reverse('projectapp:detail', args=[self.object.project.pk])
+
+class TodoDetailView(DetailView):
+    model = TodoList
+    context_object_name = 'target_todo'
+    template_name = 'todo/detail.html'
 # def todo_detail(request, pk):
 #     form = TodolistForm()
 #     tododetail = TodoList.objects.get(pk=pk)
@@ -83,11 +95,11 @@ class TodoListView(ListView):
 #         form = TodolistForm(request.POST or None, instance=tododetail)
 #         if form.is_valid():
 #             form.save()
-
-        # print(request.POST.get('name'))
-
-        # tododetail.is_done = True
-        # tododetail.save()
-    #
-    #     return redirect('todolist')
-    # return render(request, 'todo/detail.html', {'tododetail':tododetail, 'form':form})
+#
+#         print(request.POST.get('name'))
+#
+#         tododetail.is_done = True
+#         tododetail.save()
+#
+#         return redirect('todolist')
+#     return render(request, 'todo/detail.html', {'tododetail':tododetail, 'form':form})

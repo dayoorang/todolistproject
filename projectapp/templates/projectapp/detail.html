@@ -20,10 +20,12 @@
            <div class = 'col-6'>
             <div class="card m-2">
               <div class="card-header">
-                <div class="mr-auto">
-                    <a style="text-decoration: none;" class="badge rounded-pill bg-success" href="{% url 'todoapp:update' todo.pk%}">{{ todo.subject }}</a>
-                </div>
-                <div class="float-end badge rounded-pill bg-secondary">{{ todo.created_at|date}}</div>
+               <div>
+                   <a href="{% url 'todoapp:detail' todo.pk%}">{{ todo.subject }}</a>
+               </div>
+                <a style="text-decoration: none;" class="badge rounded-pill bg-primary" href="{% url 'todoapp:update' todo.pk%}">update</a>
+                <a href="{% url 'todoapp:delete' pk=todo.pk %} "style="text-decoration: none"class="badge rounded-pill bg-danger">delete</a>
+                  <div class="float-end badge rounded-pill bg-secondary">{{ todo.created_at|date}}</div>
               </div>
               <div class="card-body">
                 <div>{{ todo.content|truncatechars:30}}</div>

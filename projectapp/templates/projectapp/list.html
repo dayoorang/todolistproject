@@ -82,8 +82,13 @@
 </div>
 {# 네비게이션 바#}
 <nav aria-label="Page navigation example">
-
-  <ul class="pagination justify-content-center">
+    <style>
+    .btn-outline-info {
+        color: #040F31FF;
+        border-color:  #040F31FF;
+    }
+    </style>
+  <ul style="color:black" class="pagination justify-content-center">
         {% if is_paginated %}
 
             {% if page_obj.has_previous %}
